@@ -1,10 +1,10 @@
-FROM alpine:3.9
+FROM alpine:3.10
 STOPSIGNAL SIGCONT
 
 RUN set -x && \
     apk update && \
     apk upgrade && \
-    apk add --update --no-cache nodejs=10.14.2-r0 npm jq && \
+    apk add --update --no-cache jq && \
     apk add --update bash && \
     apk add --update ncurses-libs && \
     rm  -rf /tmp/* /var/cache/apk/* /opt/installer
