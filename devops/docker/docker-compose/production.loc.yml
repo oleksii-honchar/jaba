@@ -1,0 +1,7 @@
+version: "3.7"
+services:
+  jaba:
+    container_name: jaba
+    image: tuiteraz/jaba-loc:latest
+    networks:
+    - default
