@@ -6,9 +6,9 @@ RED='\033[0;31m'
 GREEN='\033[0;32m'
 NC='\033[0m' # No Color
 
-file=${1:-'.env'}
+file=${1:-'project.env'}
 if [ -f $file ]; then
-    printf "Gonna load root .env file ";
+    printf "Gonna load root project.env file ";
     source $file;
 
     if [ $? -eq 0 ]; then
