@@ -47,7 +47,7 @@ chmodFile devops/docker/scripts/push-image.sh
 chmodFile devops/docker/scripts/push-latest-image.sh
 chmodFile devops/docker/scripts/rm-all.sh
 chmodFile devops/docker/scripts/rm-all-volumes.sh
-chmodFile devops/docker/scripts/run-bash.dev.sh
+chmodFile devops/docker/scripts/run-bash.loc.sh
 chmodFile devops/docker/scripts/run-bash.sh
 chmodFile devops/docker/scripts/soft-cleanup.sh
 chmodFile devops/docker/scripts/stop-all.sh
