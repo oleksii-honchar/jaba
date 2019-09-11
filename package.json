@@ -2,7 +2,7 @@
   "name": "jaba",
   "version": "2.2.3",
   "description": "Javascript Application BAse docker",
-  "main": "index.js",
+  "main": "configs/lerna.json",
   "scripts": {
     "commit": "npx git-cz",
     "docker:build": "bash ./scripts/build.sh",
@@ -12,6 +12,8 @@
   },
   "author": "Oleksii Honchar",
   "license": "MIT",
+  "private": false,
+  "homepage": "https://github.com/oleksii-honchar/jaba#readme",
   "repository": {
     "type": "git",
     "url": "https://github.com/oleksii-honchar/jaba.git"
@@ -27,6 +29,7 @@
   },
   "husky": {
     "hooks": {
+      "pre-commit": "git add .",
       "commit-msg": "commitlint -E HUSKY_GIT_PARAMS --config=./configs/commitlint.config.js"
     }
   },
