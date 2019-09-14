@@ -6,7 +6,7 @@ RED='\033[0;31m'
 GREEN='\033[0;32m'
 NC='\033[0m' # No Color
 
-source ./configs/deployment.env
+source ./configs/envs/deployment.env
 source ./devops/ci/scripts/get-latest-version.sh
 
 printf "${LBLUE}Check version and push if latest${NC}\n"
@@ -32,8 +32,10 @@ if [[ -r "./devops/version/latest" ]] ; then
         echo "Pushing latest image ..."
         docker tag ${IMAGE_NAME_BUILD}:${VERSION} ${IMAGE_NAME_BUILD}:latest
         docker push ${IMAGE_NAME_BUILD}:latest
-        docker tag ${IMAGE_NAME_PROD}:${VERSION} ${IMAGE_NAME_PROD}:latest
-        docker push ${IMAGE_NAME_PROD}:latest
+        docker tag ${IMAGE_NAME_NODE}:${VERSION} ${IMAGE_NAME_NODE}:latest
+        docker push ${IMAGE_NAME_NODE}:latest
+        docker tag ${IMAGE_NAME_STATIC}:${VERSION} ${IMAGE_NAME_STATIC}:latest
+        docker push ${IMAGE_NAME_STATIC}:latest
     else
         echo "current VERSION=${VERSION}"
         echo "LATEST_VERSION=${LATEST_VERSION}"
@@ -48,8 +50,10 @@ else
     echo "Pushing latest image ..."
     docker tag ${IMAGE_NAME_BUILD}:${VERSION} ${IMAGE_NAME_BUILD}:latest
     docker push ${IMAGE_NAME_BUILD}:latest
-    docker tag ${IMAGE_NAME_PROD}:${VERSION} ${IMAGE_NAME_PROD}:latest
-    docker push ${IMAGE_NAME_PROD}:latest
+    docker tag ${IMAGE_NAME_NODE}:${VERSION} ${IMAGE_NAME_NODE}:latest
+    docker push ${IMAGE_NAME_NODE}:latest
+    docker tag ${IMAGE_NAME_STATIC}:${VERSION} ${IMAGE_NAME_STATIC}:latest
+    docker push ${IMAGE_NAME_STATIC}:latest
 fi
 
 printf "${LBLUE}Done${NC}\n"

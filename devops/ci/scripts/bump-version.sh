@@ -8,7 +8,7 @@ NC='\033[0m' # No Color
 
 BUMP="$(echo "$1" | tr '[:upper:]' '[:lower:]')"
 
-source ./configs/deployment.env
+source ./configs/envs/deployment.env
 source ./devops/ci/scripts/get-latest-version.sh
 
 if [ "$BUMP" != "major" ] && [ "$BUMP" != "minor" ] && [ "$BUMP" != "patch" ]; then

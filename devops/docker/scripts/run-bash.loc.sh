@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-source ./configs/deployment.env
+source ./configs/envs/deployment.env
 source ./devops/ci/scripts/get-latest-version.sh
 
 docker stop $CONTAINER_NAME

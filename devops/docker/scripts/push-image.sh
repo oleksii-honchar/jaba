@@ -7,8 +7,10 @@ else
     source ./devops/local/scripts/load-env.sh
 fi
 
-source ./configs/deployment.env
+source ./configs/envs/deployment.env
 source ./devops/ci/scripts/get-latest-version.sh
 source ./devops/docker/scripts/login-to-registry.sh
+
 docker push $IMAGE_NAME_BUILD:$VERSION
-docker push $IMAGE_NAME_PROD:$VERSION
+docker push $IMAGE_NAME_NODE:$VERSION
+docker push $IMAGE_NAME_STATIC:$VERSION

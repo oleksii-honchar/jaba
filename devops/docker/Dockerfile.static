@@ -1,12 +1,10 @@
-FROM node:12-alpine
+FROM alpine:latest
 STOPSIGNAL SIGCONT
 
 RUN set -x && \
     apk update && \
     apk upgrade && \
-    apk add --update --no-cache jq && \
     apk add --update bash && \
-    apk add --update ncurses-libs && \
     rm  -rf /tmp/* /var/cache/apk/* /opt/installer
 RUN mkdir -p /usr/src/web-app/dist /usr/src/web-app/src
 RUN addgroup -S www-data
