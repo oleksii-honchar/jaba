@@ -1,0 +1,7 @@
+FROM tuiteraz/nginx-more:1.25.2-2
+
+COPY ./src/nginx-config /etc/nginx
+
+EXPOSE 80
+
+CMD ["/usr/sbin/nginx"]

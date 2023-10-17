@@ -1,0 +1,10 @@
+FROM node:20-bookworm-slim
+STOPSIGNAL SIGCONT
+
+# RUN set -x && \
+#     apt-get  update && apt-get install -y && \
+#     procps && \
+#     rm -r /root/.cache
+RUN npm install -g npm@10.1.0
+RUN addgroup --system node-js && \
+    adduser --system --home /usr/src/web-app --ingroup node-js node-js

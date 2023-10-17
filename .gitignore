@@ -17,3 +17,4 @@ logs/*
 node_modules/
 devops/version/
 tmp
+.history
