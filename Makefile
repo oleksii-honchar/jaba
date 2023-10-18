@@ -37,16 +37,22 @@ logs:  ## docker logs
 log:  ## docker log for svc=<docker service name>
 	@docker compose logs --follow ${svc}
 
-up: check-project-env-vars ## docker compose up
-	@docker compose up --build --remove-orphans -d 
-
-down: check-project-env-vars ## docker compose down
-	@docker compose down
-
+# somehow only env var IMAGE works
+# make up type=static
 .ONESHELL:
-restart: check-project-env-vars  ## restart all
+up: check-project-env-vars ## docker compose up for jaba <type>
+	export IMAGE=$(type); docker compose up --build --remove-orphans -d
+	@docker compose logs --follow
+
+# make down type=static
+down: check-project-env-vars ## docker compose down for jaba-static
+	@docker compose down jaba
+
+# make restart type=static
+.ONESHELL:
+restart: check-project-env-vars  ## restart image <type>
 	@docker compose down
-	@docker compose up --build --remove-orphans -d
+	export IMAGE=$(type); docker compose up --build --remove-orphans -d
 	@docker compose logs --follow
 
 exec-bash: check-project-env-vars ## get shell for svc=<svc-name> container
@@ -67,8 +73,21 @@ build: ## build <type> image
 
 # make tag-latest type=build|node|static
 tag-latest: ## tag <type> image as latest
-	@docker tag $(IMAGE_NAME)-$(type):$(LATEST_VERSION) $(IMAGE_NAME)-$(type):latest
+	@docker tag $(BASE_IMAGE_NAME)-$(type):$(LATEST_VERSION) $(BASE_IMAGE_NAME)-$(type):latest
 
-push: ## push latest image to docker hub
-	@docker push docker.io/$(IMAGE_NAME):$(LATEST_VERSION)
-	@docker push docker.io/$(IMAGE_NAME):latest
+tag-latest-all: ## tag all images as latest
+	@make tag-latest type=static
+	@make tag-latest type=build
+	@make tag-latest type=node
+
+push: ## push latest image to docker hub of <type>
+	@docker push docker.io/$(BASE_IMAGE_NAME)-$(type):$(LATEST_VERSION)
+	@docker push docker.io/$(BASE_IMAGE_NAME)-$(type):latest
+
+push-all: ## push all images
+	@make push type=static
+	@make push type=build
+	@make push type=node
+
+test-nginx: ## test nginx
+	nginx -t -c $(PWD)/src/nginx-config/nginx.conf	

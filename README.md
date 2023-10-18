@@ -10,22 +10,10 @@ To optimize local & production build 3 different docker images used with node.js
 - node - node(alpine) + bash
 - static - alpine + bash for static only
 
-## Install
-
-
 ## Build & push
 
-Using npm scripts:
-
 ```bash
-yarn docker:build
-yarn docker:push
-```
+make build-all
+make push-all
 
-Or, you can just run script manually (not recommended):
-
-```bash
-./scripts/build.sh
-./devops/docker/scripts/push-image.sh
-./devops/docker/scripts/push-latest-image.sh
 ```

@@ -1,7 +1,10 @@
-version: "3.8"
+version: "3.9"
 services:
   jaba:
     container_name: ${CONTAINER_NAME}
-    image: tuiteraz/jaba-loc:${LATEST_VERSION}
+    image: tuiteraz/jaba-${IMAGE}:${LATEST_VERSION}
+    ports:
+      - 80:80
+      - 443:443
     networks:
     - default

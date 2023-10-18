@@ -1,4 +1,4 @@
-FROM node:20-bookworm-slim
+FROM node:20.8.1-alpine3.18
 STOPSIGNAL SIGCONT
 
 RUN addgroup --system node-js && \
