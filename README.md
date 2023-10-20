@@ -1,19 +1,31 @@
 # JABA
 
-Javascript Application BAse dockers
+**J**avascript **A**pplication **BA**se dockers
 
 ## Purpose
 
-To optimize local & production build 3 different docker images used with node.js and build tools pre-installed:
+To have defined base images for the following scenarios:
 
-- build - includes build-essentials
-- node - node(alpine) + bash
-- static - alpine + bash for static only
+- `jaba-build` - build JS/TS project
+- `jaba-static` - serve static content ([usage example](https://github.com/oleksii-honchar/ts-react-tmpl))
+- `jaba-node` - execute pre-build node.js application
 
-## Build & push
+## How to build
 
-```bash
+```shell
 make build-all
+make tag-latest-all
 make push-all
+```
 
+## How to use
+
+Use `tuiteraz/jaba-<type>` as base image in your `Dockefile`
+
+Also `jaba-static` available for local testing:
+
+```shell
+make up type=static
+# open in browser localhost:8100
+make down type=static
 ```
