@@ -11,8 +11,8 @@ CLEAR=\033[2J
 include project.env
 export $(shell sed 's/=.*//' project.env)
 
-include ./.devops/envs/deployment.env
-export $(shell sed 's/=.*//' ./.devops/envs/deployment.env)
+include ./.configs/envs/deployment.env
+export $(shell sed 's/=.*//' ./.configs/envs/deployment.env)
 
 export LATEST_VERSION=$(shell cat ./latest-version.txt)
 
@@ -37,23 +37,20 @@ logs:  ## docker logs
 log:  ## docker log for svc=<docker service name>
 	@docker compose logs --follow ${svc}
 
-# somehow only env var IMAGE works
 # make up type=static
-.ONESHELL:
 up: check-project-env-vars ## docker compose up for jaba <type>
-	export IMAGE=$(type); docker compose up --build --remove-orphans -d
-	@docker compose logs --follow
+	@IMAGE_TYPE=$(type) docker compose up --build --remove-orphans -d
+	@IMAGE_TYPE=$(type) docker compose logs --follow
 
 # make down type=static
-down: check-project-env-vars ## docker compose down for jaba-static
-	@docker compose down jaba
+down: check-project-env-vars ## docker compose down for jaba <type>
+	@IMAGE_TYPE=$(type) docker compose down jaba
 
 # make restart type=static
-.ONESHELL:
 restart: check-project-env-vars  ## restart image <type>
 	@docker compose down
-	export IMAGE=$(type); docker compose up --build --remove-orphans -d
-	@docker compose logs --follow
+	@IMAGE_TYPE=$(type) docker compose up --build --remove-orphans -d
+	@IMAGE_TYPE=$(type) docker compose logs --follow
 
 exec-bash: check-project-env-vars ## get shell for svc=<svc-name> container
 	@docker exec -it ${svc} bash
@@ -69,7 +66,7 @@ build-all: check-project-env-vars ## build all images
 
 # make build type=build|node|static
 build: ## build <type> image
-	@docker build --load -f ./src/Dockerfile.$(type) -t $(BASE_IMAGE_NAME)-$(type):$(LATEST_VERSION) .
+	docker build --load -f ./src/Dockerfile.$(type) --build-arg LATEST_VERSION=$(LATEST_VERSION) --build-arg IMAGE_NAME=$(BASE_IMAGE_NAME)-$(type) -t $(BASE_IMAGE_NAME)-$(type):$(LATEST_VERSION) .
 
 # make tag-latest type=build|node|static
 tag-latest: ## tag <type> image as latest
