@@ -1,0 +1,17 @@
+FROM tuiteraz/nginx-more:1.25.2-4
+
+ARG LATEST_VERSION
+ARG IMAGE_NAME
+ENV LATEST_VERSION=$LATEST_VERSION
+ENV IMAGE_NAME=$IMAGE_NAME
+
+COPY ./src/entrypoint.sh /usr/local/bin/entrypoint.sh
+RUN chmod +x /usr/local/bin/entrypoint.sh
+
+RUN rm -rf /etc/nginx
+COPY ./src/nginx-config /etc/nginx
+
+EXPOSE 80
+
+ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
+CMD ["/usr/sbin/nginx"]
