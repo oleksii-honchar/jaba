@@ -1,5 +1,5 @@
-FROM node:20.8.1-alpine3.18
+FROM node:22.3-alpine
 STOPSIGNAL SIGCONT
 
 RUN addgroup --system node-js && \
-    adduser --system --home /usr/src/web-app --ingroup node-js node-js
+  adduser --system --home /usr/src/app --ingroup node-js node-js
