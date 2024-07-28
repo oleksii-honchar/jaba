@@ -4,6 +4,7 @@
 .idea
 .npmrc
 .vscode
+.env
 *.crt
 *.key
 npm-debug.log

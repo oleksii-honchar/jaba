@@ -11,7 +11,7 @@ YELLOW=$(tput setaf 3)
 CYAN1='\033[38;5;51m'
 NC='\033[0m' # No Color
 
-projectEnvFile=${1:-'project.env.dist'}
+projectEnvFile=${1:-'.env.dist'}
 
 function checkVar () {
     blablo.log "${CYAN1}$1${NC}";

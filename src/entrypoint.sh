@@ -1,5 +1,5 @@
 #!/bin/sh
 
-echo "${IMAGE_NAME}:${LATEST_VERSION}"
+echo "${IMAGE_NAME}:${IMAGE_VERSION}"
 
 exec "$@"
