@@ -1,8 +1,8 @@
-FROM tuiteraz/nginx-more:1.27.0-0
+FROM tuiteraz/nginx-more:1.27.0-1.0.4
 
-ARG LATEST_VERSION
+ARG IMAGE_VERSION
 ARG IMAGE_NAME
-ENV LATEST_VERSION=$LATEST_VERSION
+ENV IMAGE_VERSION=$IMAGE_VERSION
 ENV IMAGE_NAME=$IMAGE_NAME
 
 COPY ./src/entrypoint.sh /usr/local/bin/entrypoint.sh
