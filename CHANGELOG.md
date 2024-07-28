@@ -1,5 +1,9 @@
 # Changelog
 
+## 22.3-1
+
+- add multi-platform build
+
 ## 22.3-0
 
 - bump `node.js` to `v22.3`
