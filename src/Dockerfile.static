@@ -1,4 +1,4 @@
-FROM tuiteraz/nginx-more:1.27.0-1.0.4
+FROM tuiteraz/nginx-more:1.27.0-1.0.5
 
 ARG IMAGE_VERSION
 ARG IMAGE_NAME

@@ -70,9 +70,9 @@ use-docker-container-builder:
 	@docker buildx use docker-container
 
 docker-build-n-push-all: ## build all images
-	@make build-n-push type=static
-	@make build-n-push type=build
-	@make build-n-push type=node
+	@make docker-build-n-push type=static
+	@make docker-build-n-push type=build
+	@make docker-build-n-push type=node
 
 # make build type=build|node|static
 # for multiplatform builds, it should be pushed immediately after build
