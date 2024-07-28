@@ -58,15 +58,28 @@ exec-bash: check-project-env-vars ## get shell for svc=<svc-name> container
 exec-sh: check-project-env-vars ## get shell for svc=<svc-name> container
 	@docker exec -it ${svc} sh
 
+# used for multi-platform builds
+create-docker-container-builder:
+	@docker buildx create --use --name docker-container --driver docker-container
+	@docker buildx inspect docker-container --bootstrap
 
-build-all: check-project-env-vars ## build all images
-	@make build type=static
-	@make build type=build
-	@make build type=node
+use-docker-container-builder:
+	@docker buildx create --use --name docker-container --driver docker-container
+	@docker buildx inspect docker-container --bootstrap
+	@docker buildx use docker-container
+
+build-n-push-all: check-project-env-vars ## build all images
+	@make build-n-push type=static
+	@make build-n-push type=build
+	@make build-n-push type=node
 
 # make build type=build|node|static
-build: ## build <type> image
-	docker build --load -f ./src/Dockerfile.$(type) --build-arg LATEST_VERSION=$(LATEST_VERSION) --build-arg IMAGE_NAME=$(BASE_IMAGE_NAME)-$(type) -t $(BASE_IMAGE_NAME)-$(type):$(LATEST_VERSION) .
+# for multiplatform builds, it should be pushed immediately after build
+build-n-push: ## build <type> image
+	docker buildx build --builder docker-container --platform linux/amd64,linux/arm64 --push -f ./src/Dockerfile.$(type) --build-arg LATEST_VERSION=$(LATEST_VERSION) --build-arg IMAGE_NAME=$(BASE_IMAGE_NAME)-$(type) -t $(BASE_IMAGE_NAME)-$(type):$(LATEST_VERSION) -t $(BASE_IMAGE_NAME)-$(type):latest .
+
+build-dev: ## build <type> image
+	docker buildx build --platform linux/arm64 --load -f ./src/Dockerfile.$(type) --build-arg LATEST_VERSION=$(LATEST_VERSION) --build-arg IMAGE_NAME=$(BASE_IMAGE_NAME)-$(type) -t $(BASE_IMAGE_NAME)-$(type):$(LATEST_VERSION) -t $(BASE_IMAGE_NAME)-$(type):latest .
 
 # make tag-latest type=build|node|static
 tag-latest: ## tag <type> image as latest
