@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.1](https://github.com/oleksii-honchar/jaba/compare/v1.1.0...v1.1.1) (2024-07-28)
+
+
+### Bug Fixes
+
+* fix docker build ([1621afa](https://github.com/oleksii-honchar/jaba/commit/1621afa68b1892714451615e2a03dc63de6af5b0))
+
 ## [1.1.0](https://github.com/oleksii-honchar/jaba/compare/v1.0.0...v1.1.0) (2024-07-28)
 
 
